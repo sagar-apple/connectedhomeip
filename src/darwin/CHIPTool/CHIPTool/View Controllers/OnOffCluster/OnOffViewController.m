@@ -239,12 +239,17 @@ NSString * const kCHIPNumLightOnOffCluster = @"OnOffViewController_NumLights";
     [_deviceSelector forSelectedDevices:^(uint64_t deviceId) {
         CHIPDevice * chipDevice = CHIPGetPairedDeviceWithID(deviceId);
         if (chipDevice != nil) {
-            CHIPOnOff * onOff = [[CHIPOnOff alloc] initWithDevice:chipDevice endpoint:endpoint queue:dispatch_get_main_queue()];
-            [onOff on:^(NSError * error, NSDictionary * values) {
-                NSString * resultString
-                    = (error != nil) ? [NSString stringWithFormat:@"An error occured: 0x%02lx", error.code] : @"On command success";
+            CHIPLevelControl * level = [[CHIPLevelControl alloc] initWithDevice:chipDevice endpoint:endpoint queue:dispatch_get_main_queue()];
+            [level moveToLevelWithOnOff:(int8_t)arc4random_uniform(255) transitionTime:0 completionHandler:^(NSError * _Nullable error, NSDictionary * _Nullable values) {
+                NSString * resultString = (error != nil) ? [NSString stringWithFormat:@"An error occured: 0x%02lx", error.code] : @"On command success";
                 [self updateResult:resultString];
             }];
+//            CHIPOnOff * onOff = [[CHIPOnOff alloc] initWithDevice:chipDevice endpoint:endpoint queue:dispatch_get_main_queue()];
+//            [onOff on:^(NSError * error, NSDictionary * values) {
+//                NSString * resultString
+//                    = (error != nil) ? [NSString stringWithFormat:@"An error occured: 0x%02lx", error.code] : @"On command success";
+//                [self updateResult:resultString];
+//            }];
         } else {
             [self updateResult:[NSString stringWithFormat:@"Device not found"]];
         }

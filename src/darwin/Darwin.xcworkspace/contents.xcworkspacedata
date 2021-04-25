@@ -5,6 +5,9 @@
       location = "group:CHIPTool/CHIPTool.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CTSwift/CTSwift.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Framework/CHIP.xcodeproj">
    </FileRef>
 </Workspace>
