@@ -128,11 +128,13 @@ public:
 
     /**
      * @brief
-     *   Set the value for the key to a byte buffer.
+     *   This is a synchronous Set API.
+     *   This API should be used sparingly, since it may block for some duration.
+     *
+     *   Set the value for the key to a null terminated string.
      *
      * @param[in] key Key to be set
      * @param[in] value Value to be set
-     * @param[in] size Size of the Value
      */
     virtual CHIP_ERROR SyncSetKeyValue(const char * key, const char * value) { return CHIP_ERROR_NOT_IMPLEMENTED; }
 
